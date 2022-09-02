@@ -9,18 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "products", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
+@Table(name = "products")
 public class Product {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long idProduct;
+	private long id_product;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_order")	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_order", referencedColumnName = "id_order")	
 	private Order order;
 	
 	@Column(name = "name", nullable = false, length = 30)
@@ -34,14 +33,13 @@ public class Product {
 	
 	@Column(name = "image", nullable = false, length = 200)
 	private String image;
-		
 
-	public long getIdProduct() {
-		return idProduct;
+	public long getId_product() {
+		return id_product;
 	}
 
-	public void setIdProduct(long idProduct) {
-		this.idProduct = idProduct;
+	public void setId_product(long id_product) {
+		this.id_product = id_product;
 	}
 
 	public Order getOrder() {
@@ -83,6 +81,6 @@ public class Product {
 	public void setImage(String image) {
 		this.image = image;
 	}
-
+	
 	
 }

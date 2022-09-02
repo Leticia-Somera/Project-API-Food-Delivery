@@ -1,14 +1,15 @@
 package com.cs.cs.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -21,14 +22,15 @@ public class Order {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idOrder")
-	private long idOrder;
+	@Column(name = "id_order")
+	private long id_order;
 	
-	@OneToOne(mappedBy = "order")
+	@OneToOne
+	@JoinColumn(name = "id_user", referencedColumnName = "id_user")
 	private User user;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order")
-	private List<Product> products;
+	@OneToMany(fetch = FetchType.LAZY)
+	private List<Product> products = new ArrayList<Product>();
 	
 	@Column(name = "order_date")
 	@JsonFormat(pattern = "YYYY-MM-dd")
@@ -39,14 +41,13 @@ public class Order {
 	
 	@Column(name = "total_price", nullable = false)
 	private float total_price;
-	
-	
-	public long getIdOrder() {
-		return idOrder;
+
+	public long getId_order() {
+		return id_order;
 	}
 
-	public void setIdOrder(long idOrder) {
-		this.idOrder = idOrder;
+	public void setId_order(long id_order) {
+		this.id_order = id_order;
 	}
 
 	public User getUser() {

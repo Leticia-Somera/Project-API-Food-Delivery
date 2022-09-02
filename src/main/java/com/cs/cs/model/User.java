@@ -1,13 +1,10 @@
 package com.cs.cs.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,12 +13,12 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idUser")
-	private long idUser;
+	@Column(name = "id_user")
+	private long id_user;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "order_id", referencedColumnName = "idOrder")
-    private Order order;
+	//@OneToOne(cascade = CascadeType.ALL)
+	//@JoinColumn(name = "order_id", referencedColumnName = "idOrder")
+   // private Order order;
 	
 	@Column(name = "username", nullable = false, length = 30)
 	private String username;
@@ -32,22 +29,15 @@ public class User {
 	@Column(name = "password", nullable = false, length = 8)
 	private String password;
 
-	public long getIdUser() {
-		return idUser;
+	public long getId_user() {
+		return id_user;
 	}
 
-	public void setIdUser(long idUser) {
-		this.idUser = idUser;
+	public void setId_user(long id_user) {
+		this.id_user = id_user;
 	}
 
-	public Order getOrder() {
-		return order;
-	}
-
-	public void setOrder(Order order) {
-		this.order = order;
-	}
-
+	
 	public String getUsername() {
 		return username;
 	}
