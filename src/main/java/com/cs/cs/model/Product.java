@@ -41,7 +41,7 @@ public class Product {
 	public void setId_product(long id_product) {
 		this.id_product = id_product;
 	}
-
+/*
 	public Order getOrder() {
 		return order;
 	}
@@ -49,7 +49,7 @@ public class Product {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-
+*/
 	public String getName() {
 		return name;
 	}
