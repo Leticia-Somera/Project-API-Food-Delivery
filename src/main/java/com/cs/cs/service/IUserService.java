@@ -2,15 +2,17 @@ package com.cs.cs.service;
 
 import java.util.List;
 
-import com.cs.cs.model.User;
+import com.cs.cs.model.Users;
 
 public interface IUserService {
 	
-	User create(User user);
+	Users create(Users user);
 	
-	User findById(Long id);
+	Users findByEmail(String email);
 	
-	List<User> findAll();
+	List<Users> findAll();
 
-	void delete(Long id);
+	Users findById(Long id);
+
+	//void delete(long id);
 }

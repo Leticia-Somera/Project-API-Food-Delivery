@@ -16,4 +16,8 @@ public interface IOrderService {
 	
 	void delete(Long id);
 
+	List<Order> findAllById(Long id);
+
+	List<Order> findAllByUserId(Long id);
+
 }

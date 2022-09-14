@@ -1,49 +1,50 @@
 package com.cs.cs.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+//import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class Users {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_user")
-	private long id_user;
-	
-	//@OneToOne(cascade = CascadeType.ALL)
-	//@JoinColumn(name = "order_id", referencedColumnName = "idOrder")
-   // private Order order;
-	
-	@Column(name = "username", nullable = false, length = 30)
-	private String username;
+	private long id;
 	
 	@Column(name = "email", nullable = false, length = 30)
 	private String email;
 	
 	@Column(name = "password", nullable = false, length = 8)
 	private String password;
-
-	public long getId_user() {
-		return id_user;
-	}
-
-	public void setId_user(long id_user) {
-		this.id_user = id_user;
-	}
-
 	
-	public String getUsername() {
-		return username;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@JsonIgnore
+	private List<Order> order;
+	
+	protected Users() {}
+	public Users(String email, String password) {
+		super();		
+		this.email = email;
+		this.password = password;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getEmail() {
@@ -62,5 +63,11 @@ public class User {
 		this.password = password;
 	}
 	
+	
+	@Override
+	public String toString() {
+		return "User [id = " + id + ", email = "
+				+ email + "]";
+	}
 	
 }

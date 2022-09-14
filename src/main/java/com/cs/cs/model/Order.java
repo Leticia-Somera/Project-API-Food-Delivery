@@ -1,17 +1,14 @@
 package com.cs.cs.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -22,56 +19,47 @@ public class Order {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_order")
-	private long id_order;
+	private long id;
 	
-	@OneToOne
-	@JoinColumn(name = "id_user", referencedColumnName = "id_user")
-	private User user;
+	private String status; 
 	
-	@OneToMany(fetch = FetchType.LAZY)
-	private List<Product> products = new ArrayList<Product>();
+	private float total_price;
 	
-	@Column(name = "order_date")
 	@JsonFormat(pattern = "YYYY-MM-dd")
 	private Date order_date;
 	
-	@Column(name = "status", nullable = false, length = 9)
-	private String status;
+	@ManyToOne//(fetch = FetchType.LAZY)	
+	private Users user;
 	
-	@Column(name = "total_price", nullable = false)
-	private float total_price;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order") 
+	private List<OrderProduct> orderProducts;
+	
+	public Order() {}
 
-	public long getId_order() {
-		return id_order;
-	}
-
-	public void setId_order(long id_order) {
-		this.id_order = id_order;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-
-	public Date getOrder_date() {
-		return order_date;
-	}
-
-	public void setOrder_date(Date order_date) {
+	public Order(String status, float total_price, Date order_date) {
+		super();
+		this.status = status;
+		this.total_price = total_price;
 		this.order_date = order_date;
+	}
+
+	public Order(String status, float total_price) {
+		this.status = status;
+		this.total_price = total_price;
+	}
+
+	public Order(long id, String status, float total_price) {
+		this.id = id;
+		this.status = status;
+		this.total_price = total_price;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getStatus() {
@@ -90,5 +78,33 @@ public class Order {
 		this.total_price = total_price;
 	}
 
+	public Date getOrder_date() {
+		return order_date;
+	}
+
+	public void setOrder_date(Date order_date) {
+		this.order_date = order_date;
+	}
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+	public List<OrderProduct> getOrderProducts() {
+		return orderProducts;
+	}
+
+	public void setOrderProducts(List<OrderProduct> orderProducts) {
+		this.orderProducts = orderProducts;
+	}
+	
+	@Override
+	public String toString() {
+		return "Order [id = " + id + ", status = " + status + ", total_price = " + total_price + ", user = " + user + "]";
+	}
 	
 }

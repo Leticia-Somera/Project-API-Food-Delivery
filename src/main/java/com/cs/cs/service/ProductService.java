@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.cs.cs.model.Product;
 import com.cs.cs.repository.ProductRepository;
 
@@ -14,11 +13,11 @@ public class ProductService implements IProductService{
 
 	@Autowired
 	private ProductRepository productRepository;
-	
+	/*
 	@Override
 	public Product create(Product product) {
 		return productRepository.save(product);
-	}
+	}*/
 
 	@Override
 	public Product findById(Long id) {

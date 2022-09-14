@@ -30,15 +30,25 @@ public class OrderService implements IOrderService{
 		Optional<Order> orderOptional = orderRepository.findById(id);
 		return orderOptional.orElse(null);
 	}
+	
+	@Override
+	public void delete(Long id) {
+		orderRepository.deleteById(id);			
+	}
+	
+	@Override
+	public List<Order> findAllById(Long id) {
+		return orderRepository.findAllById(id);
+	}
+	
+	@Override
+	public List<Order> findAllByUserId(Long id) {
+		return orderRepository.findAllByUserId(id);
+	}
 
 	@Override
 	public List<Order> findAll() {
 		return orderRepository.findAll();
-	}
-
-	@Override
-	public void delete(Long id) {
-		orderRepository.deleteById(id);			
 	}
 
 }
