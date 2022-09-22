@@ -16,7 +16,7 @@ import com.cs.cs.model.Users;
 import com.cs.cs.service.UserService;
 import com.fasterxml.jackson.databind.JsonNode;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class UserController {
 	
@@ -24,18 +24,11 @@ public class UserController {
 	private UserService userService;
 
 	
-	@PostMapping(path = "/{id}")
-	/*public ResponseEntity<User> create(@RequestBody JsonNode payload) {
-		String email = payload.get("email").toString().replace("\"", "");
-		System.out.println("Email: " + email);
-		User user = userService.findByEmail(email);	
-		if(user == null)
-			throw new ModelNotFoundException("The User is not registered. Please contact to the admin.");
-		return new ResponseEntity<>(userService.create(user), HttpStatus.OK);
-	}	*/
+	@PostMapping(path = "/user/id")
 	public long getCustomerID(@RequestBody JsonNode payload) {
-		String email = payload.get("email").toString().replace("\"", "");
-		System.out.println("Email: " + email);
+		System.out.println("Email: " + payload.toPrettyString());
+		String email = payload.get("username").toString().replace("\"", "");
+		
 		Users user = userService.findByEmail(email);
 		if(user == null)
 			throw new ModelNotFoundException("The User is not registered. Please contact to the admin.");
@@ -43,10 +36,10 @@ public class UserController {
 	}
 	
 
-	@GetMapping
+	/*@GetMapping
 	public ResponseEntity<List<Users>> findAll(){
 		return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
-	}
+	}*/
 		/*
 	@GetMapping("/{id}")
 	public ResponseEntity<User> findById(@PathVariable("id") Long idUser) throws Exception{

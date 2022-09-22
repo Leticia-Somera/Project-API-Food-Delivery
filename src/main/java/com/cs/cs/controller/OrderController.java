@@ -30,7 +30,7 @@ import com.cs.cs.service.ProductService;
 import com.cs.cs.service.UserService;
 import com.fasterxml.jackson.databind.JsonNode;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class OrderController {
 	
@@ -48,9 +48,9 @@ public class OrderController {
 	@Autowired
 	private ProductService productService;
 	
-	@GetMapping(path = "/orders/{user_id}")
-	public List<Order> showOrders(@PathVariable long user_id){
-		return orderService.findAllByUserId(user_id);
+	@GetMapping(path = "/orders/user/{idCustomer}")
+	public List<Order> showOrders(@PathVariable long idCustomer){
+		return orderService.findAllByUserId(idCustomer);
 	} 
 	
 	
@@ -65,8 +65,8 @@ public class OrderController {
 	}
 	
 	
-	@RequestMapping(method = RequestMethod.GET, path = "/order/{id}/detail")
-	public CollectionModel<OrderProduct> orderDetail(@PathVariable("id") Long id){
+	@RequestMapping(method = RequestMethod.GET, path = "/order/{id}/fullOrder")
+	public CollectionModel<OrderProduct> fullOrder(@PathVariable("id") long id){
 		Order order = orderService.findById(id);
 		if(order == null) {
 			throw new ModelNotFoundException("The requested order does not exist."); 
@@ -77,7 +77,6 @@ public class OrderController {
 		CollectionModel<OrderProduct> model = CollectionModel.of(products);
 		
 		return model;
-		
 	}
 	
 	
@@ -141,11 +140,9 @@ public class OrderController {
     }
     
    URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-            .buildAndExpand(createOrder.getId()).toUri();
-			
+            .buildAndExpand(createOrder.getId()).toUri();			
 
-	return ResponseEntity.created(location).build();
-	
+	return ResponseEntity.created(location).build();	
 	
 	}
 }
