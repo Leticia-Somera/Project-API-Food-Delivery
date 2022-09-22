@@ -1,6 +1,7 @@
 package com.cs.cs.controller;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -66,17 +67,13 @@ public class OrderController {
 	
 	
 	@RequestMapping(method = RequestMethod.GET, path = "/order/{id}/fullOrder")
-	public CollectionModel<OrderProduct> fullOrder(@PathVariable("id") long id){
+	public List<OrderProduct> fullOrder(@PathVariable("id") long id){
 		Order order = orderService.findById(id);
 		if(order == null) {
 			throw new ModelNotFoundException("The requested order does not exist."); 
 		}
-		
-		List<OrderProduct> products = order.getOrderProducts();
-		
-		CollectionModel<OrderProduct> model = CollectionModel.of(products);
-		
-		return model;
+		return new ArrayList<>(order.getOrderProducts());
+	
 	}
 	
 	
